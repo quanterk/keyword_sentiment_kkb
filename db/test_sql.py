@@ -1,4 +1,5 @@
 # 导入:
+# Reference: https://www.liaoxuefeng.com/wiki/897692888725344/955081460091040
 from sqlalchemy import Column, String, create_engine, VARCHAR
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -22,7 +23,6 @@ root = 'root'
 password = 'AI@2019@ai'
 database = 'stu_db'
 
-# mac_link = 'mysql+pymysql://<username>:<password>@<host>/<dbname>[?<options>]'
 db_link = 'mysql+mysqlconnector://{}:{}@{}/{}'.format(root, password, host, database)
 
 engine = create_engine(db_link)
