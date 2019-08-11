@@ -32,7 +32,7 @@ DBSession = sessionmaker(bind=engine)
 
 session = DBSession()
 # 创建Query查询，filter是where条件，最后调用one()返回唯一行，如果调用all()则返回所有行:
-paragraph = session.query(Paragraph).filter(Paragraph.id=='5').one()
+paragraph = session.query(Paragraph).filter(Paragraph.id=='30000').one()
 # 打印类型和对象的name属性:
 print('type:', type(paragraph))
 print('name:', paragraph.content)
