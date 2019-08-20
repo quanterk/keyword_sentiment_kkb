@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- 新 Bootstrap 核心 CSS 文件 -->
+    <link href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+    <script src="http://cdn.static.runoob.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js"></script>
+    <!-- Latest compiled and minified Locales -->
+    <script src="https://unpkg.com/bootstrap-table@1.15.3/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12">
+                    <h3>
+                        这是一个系统
+                    </h3>
+                    <div class="form-search form-inline">
+                        <input id="username_id" class="input-medium search-query" type="text" style="margin-right: 10px;
+                            margin-bottom: 10px;height: 30px;width: 200px;"><button class="btn btn-small" type="button"
+                            id="query_username" style="background: antiquewhite;">查询</button>
+                    </div>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="width: 10%">nums</th>
+                                <th style="width: 10%">user</th>
+                                <th style="width: 10%">verb</th>
+                                <th>message</th>
+                            </tr>
+                        </thead>
+                        <tbody id="data_list">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(function () {
+                getDataList('');
+                $('#query_username').click(function () {
+                    getDataList($("#username_id").val());
+                });
+            });
+
+
+
+            /**
+            * 初始化申请状态选项
+            * @param obj
+            * @param itemId
+            */
+            function getDataList(username) {
+                console.log(username);
+                $.ajax({
+                    type: "POST",
+                    async: true,
+                    dataType: "json",
+                    url: "/list?_time=" + new Date().getTime(),
+                    data: 'username=' + username,
+                    success: function (res) {
+                        console.log(res)
+                        if (res.code == 1) {
+                            var data = res.data;
+                            console.log($("#data_list").val());
+                            $("#data_list").empty();
+                            if (data) {
+                                class_list = ['success', 'error', 'warning', 'info']
+                                for (var i = 0; i < data.length; i++) {
+                                    var line = " <tr class='" + class_list[i % class_list.length] + "'><td>{1}</td><td>{2}</td><td>{3}</td><td>{4}</td></tr>"
+                                    line = line.replace("{1}", data[i][0]).replace("{2}", data[i][1]).replace("{3}", data[i][2]).replace("{4}", data[i][3])
+                                    $("#data_list").append(line);
+                                }
+                            }
+                        } else {
+                            // bootbox.dialog({
+                            //     message: res.message,
+                            //     title: "获取异常",
+                            //     buttons: {
+                            //         main: {
+                            //             label: "确定",
+                            //             className: "btn-primary",
+                            //             callback: function () {
+
+                            //             }
+                            //         }
+                            //     }
+                            // });
+                        }
+                    }
+                });
+            }
+        </script>
+    </div>
+</body>
+
+</html>
