@@ -1,3 +1,8 @@
+import sys
+import os
+file_dir = os.path.dirname(os.path.abspath('../'))
+sys.path.append(file_dir)
+
 from bottle import get, post, request, route, run, template, static_file
 from algo.project1_multi import final_model
 
@@ -39,4 +44,4 @@ def selectData():
     return result
 
 
-run(host='localhost', port=8881)
+run(host="0.0.0.0", port=8868, server="tornado")
