@@ -6,7 +6,7 @@ Created on Wed Aug 14 15:24:45 2019
 """
 # 问题：1.model训练 （同义词准确性和全面性）2。后置语句 3.整篇文章  
 from gensim.models import Word2Vec  
-from pyplt_my import HIT 
+from algo.pyplt_my import HIT
 from collections import defaultdict 
 model = Word2Vec.load("word2vec.model")   
 #model = Word2Vec.load("word2vec_final.model") 

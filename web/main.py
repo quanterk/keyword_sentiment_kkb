@@ -1,5 +1,5 @@
 from bottle import get, post, request, route, run, template, static_file
-
+from algo.project1_multi import final_model
 
 @get('/')
 def index():
@@ -13,7 +13,7 @@ def selectData():
     data = []
     result = {}
     username = _result.get('username').strip()
-    print(username)
+    # print(username)
     data1 = [1, "习近平", "指出", "既要决胜全面建成小康社会，又要开启全面建设社会主义现代化国家新征程"]
     data.append(data1)
 
@@ -27,11 +27,12 @@ def selectData():
     data.append(data4)
 
     if username is not None and username != "":
-        _data = []
-        for line in data:
-            if username in line[1]:
-                _data.append(line)
-        result["data"] = _data
+        user_result = [0] + final_model(username)
+        # _data = []
+        # for line in data:
+        #     if username in line[1]:
+        #         _data.append(line)
+        result["data"] = [user_result]
     else:
         result["data"] = data
     result["code"] = 1
